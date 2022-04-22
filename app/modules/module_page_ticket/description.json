@@ -13,7 +13,13 @@
     "available_types": "1",
     "interface": 1,
     "interface_adjacent": "afternavbar",
-    "data": 1
+    "data": 1,
+    "cache_enable": 0,
+    "cache_time": 3600,
+    "translation": 1,
+    "data_always": 0,
+    "css": 0,
+    "js": 0
   },
   "sidebar": {
     "0": {

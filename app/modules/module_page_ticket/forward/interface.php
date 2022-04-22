@@ -95,7 +95,7 @@ if (isset($_GET['id'])) {
     <div class="col-2"></div>
     <div class="card col-8">
         <div class="card-container text-center">
-            <h3><?php echo $Translate->get_translate_phrase('_TicketInput') ?></h3>
+            <h3><?php echo $Translate->get_translate_module_phrase('module_page_ticket','_TicketInput', ) ?></h3>
             <div class="card-block">Here you can file a ticket to an admin</div>
             <div class="align-center" style="margin-top: 2rem">
                 <form class="input-form" method="post" role="form">
