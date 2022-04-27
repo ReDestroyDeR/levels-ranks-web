@@ -9,7 +9,7 @@ class Ticket
     public ?string $description;
     public ?string $proofs;
     public ?int $timestamp;
-    public ?int $response_id;
+    public ?bool $closed;
 
     /**
      * @param string|null $author
@@ -17,21 +17,21 @@ class Ticket
      * @param string|null $description
      * @param string|null $proofs
      * @param int|null $timestamp
-     * @param int|null $response_id
+     * @param bool|null $closed
      */
     public function __construct(?string $author,
                                 ?string $target,
                                 ?string $description,
                                 ?string $proofs,
                                 ?int $timestamp,
-                                ?int $response_id)
+                                ?bool $closed)
     {
         $this->author = $author;
         $this->target = $target;
         $this->description = $description;
         $this->proofs = $proofs;
         $this->timestamp = $timestamp;
-        $this->response_id = $response_id;
+        $this->closed = $closed;
     }
 
 

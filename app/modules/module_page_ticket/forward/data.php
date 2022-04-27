@@ -10,11 +10,60 @@ $target = $_POST['target'];
 $description = $_POST['description'];
 $proofs = $_POST['proofs'];
 
-// Creating short aliases for potential ticket response form data\
+// Creating short aliases for potential ticket response form data
 $ticket_id = $_POST['ticket_id'];
+$close = $_POST['close'];
 $response = $_POST['response'];
 
 // TODO: Rewrite notifications to satisfy $Notifications API and add Translations for all Strings
+// Check for cancel
+if (isset($_SESSION['steamid32']) and isset($ticket_id) and isset($close)) {
+    if (!$close) {
+        return;
+    }
+
+    $ticket = $Db->query("ticket",
+                0,
+                0,
+                "SELECT `lvl_web_tickets`.`author` FROM `lvl_web_tickets` WHERE id = :id",
+                ['id' => $ticket_id]);
+
+    if (count($ticket) == 0) {
+        http_response_code(402);
+        $General->sendNote("ERROR: Ticket not found for this request", false);
+        header("Location: /ticket/?id=" . $ticket_id);
+        return;
+    }
+
+    if ($ticket['author'] != $_SESSION['steamid32']) {
+        http_response_code(403);
+        $General->sendNote("ERROR: You don't own this ticket", false);
+        header("Location: /ticket/?id=" . $ticket_id);
+        return;
+    }
+
+    $closed =
+        count(
+            $Db->query("ticket",
+                0,
+                0,
+                "UPDATE `lvl_web_tickets`
+                    SET `closed` = :closed
+                    WHERE `lvl_web_tickets`.`id` = :id;",
+                ['id' => $ticket_id, 'closed' => $close])
+        ) != 0;
+
+    if (!$closed) {
+        http_response_code(500);
+        $General->sendNote("ERROR: Ticket closing failed for this request", false);
+        header("Location: /ticket/?id=" . $ticket_id);
+        return;
+    }
+
+    $General->sendNote("Ticket closed", false);
+    header("Location: /ticket/?id=" . $ticket_id);
+}
+
 // Check for a data after Submit
 if (isset($_SESSION['steamid32']) and isset($target) and isset($description) and isset($proofs)) {
     if (strlen($target) < 3 or strlen($description) < 10 or strlen($proofs) < 9) {
@@ -36,18 +85,18 @@ if (isset($_SESSION['steamid32']) and isset($target) and isset($description) and
     );
 
     if (add_ticket($ticket, $Db)) {
-        $General->sendNote("You just sent a ticket", true);
+        printf("Something %s", $General->sendNote("You just sent a ticket", false));
         header("Location: /ticket");
         return;
     }
 
-    $General->sendNote("You need to wait for at least 3 hours before sending a next ticket", true);
+    $General->sendNote("You need to wait for at least 3 hours before sending a next ticket", false);
     http_response_code(400);
     header("Location: /ticket");
     return;
 }
 
-if (isset($_SESSION['steamid32']) and $_SESSION['user_admin'] == 1 and isset($response) and isset($ticket_id)) {
+if (isset($_SESSION['steamid32']) and isset($response) and isset($ticket_id)) {
     $exists =
         count(
             $Db->query("ticket",
@@ -116,7 +165,7 @@ function is_user_allowed_to_post_a_ticket(string $user_steam_id, $Db): bool
     )['timestamp'];
 
     // If user have never posted a ticket or last ticket was sent more than 3 hours ago
-    return $timestamp == null; // or $timestamp + (3 * 60 * 60) < time() ;
+    return true; // $timestamp == null or $timestamp + (3 * 60 * 60) < time() ;
 }
 
 function add_ticket(Ticket $ticket, $Db) : bool {

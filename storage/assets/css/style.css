@@ -224,6 +224,16 @@ button:-moz-focusring,
     outline: 1px dotted ButtonText;
 }
 
+button:disabled,
+[type="button"]:disabled,
+[type="reset"]:disabled,
+[type="submit"]:disabled {
+    background-color: var(--hover);
+    color: var(--top-text-color);
+}
+
+
+
 fieldset {
     padding: 0.35em 0.75em 0.625em;
 }
