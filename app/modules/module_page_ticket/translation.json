@@ -2,5 +2,73 @@
   "_TicketInput": {
     "EN": "Reports",
     "RU": "Жалобы"
+  },
+  "_TicketInputDescription": {
+    "EN": "Here you can leave a player report",
+    "RU": "Здесь вы можете оставить жалобу на игрока"
+  },
+  "_TicketInputForm": {
+    "EN": "Ticket Input Form",
+    "RU": "Форма Подачи Жалобы"
+  },
+  "_TicketNumber": {
+    "EN": "Ticket",
+    "RU": "Тикет"
+  },
+  "_TicketLoginRequest": {
+    "EN": "You need to login to access this page",
+    "RU": "Вам требуется войти для того чтобы получить доступ к этой странице"
+  },
+  "_TicketSubmitButton": {
+    "EN": "Submit",
+    "RU": "Отправить"
+  },
+  "_TicketNoAccess": {
+    "EN": "No access",
+    "RU": "Нет доступа"
+  },
+  "_TicketRefernceUserPlaceholder": {
+    "EN": "Reference user (Nickname)",
+    "RU": "Тема жалобы (Ник)"
+  },
+  "_TicketExplainPlaceholder": {
+    "EN": "Explain what happened (Minimum 10 characters)",
+    "RU": "Объясните, что произошло (Минимум 10 символов)"
+  },
+  "_TicketProofPlaceholder": {
+    "EN": "Proofs (URL)",
+    "RU": "Доказательства (URL)"
+  },
+  "_TicketMessengerAuthor": {
+    "EN": "Author",
+    "RU": "Автор"
+  },
+  "_TicketMessengerTarget": {
+    "EN": "Target",
+    "RU": "Игрок"
+  },
+  "_TicketMessengerProofs": {
+    "EN": "Proofs",
+    "RU": "Доказательства"
+  },
+  "_TicketMessengerAdmin": {
+    "EN": "Admin",
+    "RU": "Администратор"
+  },
+  "_TicketMessengerWriteHerePlaceholder": {
+    "EN": "Write a message...",
+    "RU": "Напишите сообщение..."
+  },
+  "_TicketMessengerCloseTicket": {
+    "EN": "Close ticket",
+    "RU": "Закрыть тикет"
+  },
+  "_TicketStatus": {
+    "EN": "Status",
+    "RU": "Статус"
+  },
+  "_TicketUpdateTime": {
+    "EN": "Last update",
+    "RU": "Последнее обновление"
   }
 }

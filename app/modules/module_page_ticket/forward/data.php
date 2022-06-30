@@ -17,7 +17,7 @@ $response = $_POST['response'];
 
 // TODO: Rewrite notifications to satisfy $Notifications API and add Translations for all Strings
 // Check for cancel
-if (isset($_SESSION['steamid32']) and isset($ticket_id) and isset($close)) {
+if (isset($_SESSION['steamid']) and isset($ticket_id) and isset($close)) {
     if (!$close) {
         return;
     }
@@ -35,7 +35,7 @@ if (isset($_SESSION['steamid32']) and isset($ticket_id) and isset($close)) {
         return;
     }
 
-    if ($ticket['author'] != $_SESSION['steamid32']) {
+    if ($ticket['author'] != $_SESSION['steamid']) {
         http_response_code(403);
         $General->sendNote("ERROR: You don't own this ticket", false);
         header("Location: /ticket/?id=" . $ticket_id);
@@ -65,7 +65,7 @@ if (isset($_SESSION['steamid32']) and isset($ticket_id) and isset($close)) {
 }
 
 // Check for a data after Submit
-if (isset($_SESSION['steamid32']) and isset($target) and isset($description) and isset($proofs)) {
+if (isset($_SESSION['steamid']) and isset($target) and isset($description) and isset($proofs)) {
     if (strlen($target) < 3 or strlen($description) < 10 or strlen($proofs) < 9) {
         $General->sendNote("Target should be at least 3 letters;
                                 Description should be at least 10 letters;
@@ -76,7 +76,7 @@ if (isset($_SESSION['steamid32']) and isset($target) and isset($description) and
     }
 
     $ticket = new Ticket(
-        $_SESSION['steamid32'],
+        $_SESSION['steamid'],
         $target,
         $description,
         $proofs,
@@ -96,7 +96,7 @@ if (isset($_SESSION['steamid32']) and isset($target) and isset($description) and
     return;
 }
 
-if (isset($_SESSION['steamid32']) and isset($response) and isset($ticket_id)) {
+if (isset($_SESSION['steamid']) and isset($response) and isset($ticket_id)) {
     $exists =
         count(
             $Db->query("ticket",
@@ -115,7 +115,7 @@ if (isset($_SESSION['steamid32']) and isset($response) and isset($ticket_id)) {
 
 
     $ticket_response = new TicketResponse(
-        $_SESSION['steamid32'],
+        $_SESSION['steamid'],
         $response,
         time(),
         $ticket_id
